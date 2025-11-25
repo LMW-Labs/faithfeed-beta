@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaithFeed Private Beta - Join Now</title>
+    <meta name="description" content="Join the private beta of FaithFeed - A faith-based social platform launching December 2025">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+    <!-- Background gradient effects -->
+    <div class="bg-gradient"></div>
+    <div class="bg-gradient-2"></div>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo-circle">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 5L35 20H50L38 28L42 43L30 35L18 43L22 28L10 20H25L30 5Z" fill="white"/>
+                </svg>
+            </div>
+            <h1 class="logo-text">FaithFeed</h1>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="beta-badge">Private Beta</div>
+            <h2 class="hero-title">
+                Be Among the First to Experience<br>
+                <span class="gradient-text">The Future of Faith-Based Connection</span>
+            </h2>
+            <p class="hero-description">
+                FaithFeed is launching in December 2025. Join our exclusive private beta and help shape
+                the platform where faith meets community, powered by cutting-edge AI.
+            </p>
+        </section>
+
+        <!-- Stats Section -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Beta Spots Available</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">Dec 2025</div>
+                <div class="stat-label">Launch Date</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Free During Beta</div>
+            </div>
+        </div>
+
+        <!-- Beta Benefits -->
+        <section class="benefits">
+            <h3 class="benefits-title">What You'll Get as a Beta Tester</h3>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h4>Early Access</h4>
+                    <p>Be the first to experience all premium features before public launch</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💎</div>
+                    <h4>Lifetime Premium</h4>
+                    <p>Get lifetime premium membership when we launch publicly</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h4>Shape the Platform</h4>
+                    <p>Your feedback will directly influence features and design</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">👥</div>
+                    <h4>Exclusive Community</h4>
+                    <p>Join a select group of early adopters and faith leaders</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Signup Form -->
+        <section class="signup-section">
+            <div class="signup-card">
+                <h3 class="signup-title">Secure Your Beta Access</h3>
+                <p class="signup-subtitle">Limited spots available. Join the waitlist now.</p>
+
+                <form class="beta-form" action="https://formspree.io/f/manzjalj" method="POST" id="betaForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="church">Church/Ministry (Optional)</label>
+                        <input type="text" id="church" name="church" placeholder="Your church or ministry name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="platform">Preferred Platform</label>
+                        <select id="platform" name="platform" required>
+                            <option value="">Select platform...</option>
+                            <option value="ios">iOS (iPhone/iPad)</option>
+                            <option value="android">Android</option>
+                            <option value="both">Both iOS and Android</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="newsletter" value="yes" checked>
+                            <span>Send me updates about FaithFeed's development</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="btn-text">Join Private Beta</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+
+                    <p class="form-privacy">
+                        By joining, you agree to receive beta testing invitations and updates.
+                        We respect your privacy and will never share your information.
+                    </p>
+                </form>
+
+                <!-- Success Message (hidden by default) -->
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">✓</div>
+                    <h4>Welcome to FaithFeed Beta!</h4>
+                    <p>Check your email for next steps. We'll be in touch soon with your beta invitation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Preview -->
+        <section class="features-preview">
+            <h3 class="features-title">What to Expect in Beta</h3>
+            <div class="features-list">
+                <div class="feature-item">
+                    <span class="feature-check">✓</span>
+                    <span>AI-powered Bible study and devotionals</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-check">✓</span>
+                    <span>Community prayer walls and prayer requests</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-check">✓</span>
+                    <span>Faith-focused social networking</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-check">✓</span>
+                    <span>Daily inspirational content and scripture</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-check">✓</span>
+                    <span>Private groups for churches and ministries</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-check">✓</span>
+                    <span>Event planning and ministry coordination</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline -->
+        <section class="timeline">
+            <h3 class="timeline-title">Beta Timeline</h3>
+            <div class="timeline-track">
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Q4 2025</div>
+                        <div class="timeline-label">Platform Development Complete</div>
+                    </div>
+                </div>
+                <div class="timeline-item active">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">December 2025</div>
+                        <div class="timeline-label">Private Beta Launch</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Q1 2026</div>
+                        <div class="timeline-label">Public Launch</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">
+                Built with faith by <a href="https://lmwlabs.faith" target="_blank">LMW Labs</a>
+            </p>
+            <div class="footer-links">
+                <a href="https://faithfeed.ai" target="_blank">Main Site</a>
+                <span>•</span>
+                <a href="mailto:beta@lmwlabs.faith">Contact</a>
+                <span>•</span>
+                <a href="https://faithfeed.ai#privacy" target="_blank">Privacy</a>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
