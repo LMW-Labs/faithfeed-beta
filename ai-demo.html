@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>FaithFeed AI Bible Study Demo - Audit Our AI</title>
+    <meta name="title" content="FaithFeed AI Bible Study Demo">
+    <meta name="description" content="Test FaithFeed's AI Bible study assistant. No signup required. We need honest feedback on whether this helps or hurts discipleship.">
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        .demo-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--spacing-xl);
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .demo-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .demo-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .warning-box h3 {
+            color: #dc2626;
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.25rem;
+        }
+
+        .warning-box p {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.6;
+        }
+
+        .demo-input-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .input-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+
+        .verse-input {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .verse-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .demo-button {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-xl);
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .demo-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .ai-response-section {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            display: none;
+        }
+
+        .ai-response-section.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ai-disclaimer {
+            background: rgba(251, 191, 36, 0.1);
+            border-left: 4px solid #f59e0b;
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            border-radius: 4px;
+        }
+
+        .ai-disclaimer strong {
+            color: #d97706;
+        }
+
+        .response-content {
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .response-content h4 {
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-sm);
+            color: var(--accent-blue);
+        }
+
+        .feedback-section {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-xl);
+            border-top: 2px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .feedback-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feedback-btn {
+            flex: 1;
+            padding: var(--spacing-md);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .feedback-btn:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .feedback-btn.helpful {
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .feedback-btn.helpful:hover {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: #10b981;
+        }
+
+        .feedback-btn.harmful {
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .feedback-btn.harmful:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+        }
+
+        .feedback-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: var(--spacing-md);
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+        }
+
+        .feedback-textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .example-verses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .example-verse {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        .example-verse:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: var(--spacing-xl);
+        }
+
+        .loading-spinner.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid rgba(59, 130, 246, 0.1);
+            border-top: 4px solid var(--accent-blue);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto var(--spacing-md);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background gradient effects -->
+    <div class="bg-gradient"></div>
+    <div class="bg-gradient-2"></div>
+
+    <main class="demo-container">
+        <!-- Header -->
+        <div class="demo-header">
+            <div class="logo-section">
+                <img src="blue glow.png" alt="FaithFeed Omega" class="logo-omega" style="width: 60px; height: 60px;">
+                <h1 class="logo-text" style="font-size: 1.5rem; margin-top: 0.5rem;">faithfeed</h1>
+            </div>
+            <h2 class="demo-title">AI Bible Study Demo</h2>
+            <p class="demo-subtitle">
+                Test our AI assistant. No signup required. We need your honest feedback.
+            </p>
+        </div>
+
+        <!-- Warning Box -->
+        <div class="warning-box">
+            <h3>⚠️ Important Disclaimer</h3>
+            <p><strong>This is AI-generated content.</strong> It may contain errors, theological inaccuracies, or incomplete information.</p>
+            <p><strong>Always verify with:</strong> Your pastor, study group, trusted commentaries, and most importantly, prayer and the Holy Spirit's guidance.</p>
+            <p><strong>Our goal:</strong> Provide helpful historical context and study questions - NOT doctrine or definitive interpretations.</p>
+            <p><strong>We need your help:</strong> Tell us if this is helpful or harmful to spiritual growth.</p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="demo-input-section">
+            <div class="input-group">
+                <label for="verseInput">Enter a Bible passage (e.g., "John 3:16" or "Romans 8:28-30")</label>
+                <input
+                    type="text"
+                    id="verseInput"
+                    class="verse-input"
+                    placeholder="John 3:16"
+                    aria-label="Bible verse reference"
+                />
+            </div>
+
+            <div class="example-verses">
+                <div class="example-verse" onclick="loadExample('John 3:16')">John 3:16</div>
+                <div class="example-verse" onclick="loadExample('Romans 8:28')">Romans 8:28</div>
+                <div class="example-verse" onclick="loadExample('Philippians 4:6-7')">Philippians 4:6-7</div>
+                <div class="example-verse" onclick="loadExample('Psalm 23')">Psalm 23</div>
+            </div>
+
+            <button class="demo-button" onclick="analyzeVerse()" id="analyzeBtn">
+                Analyze Passage
+            </button>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p>AI is analyzing the passage...</p>
+        </div>
+
+        <!-- AI Response Section -->
+        <div class="ai-response-section" id="responseSection">
+            <div class="ai-disclaimer">
+                <strong>⚠️ AI Response:</strong> This is generated content. Verify with trusted sources and your faith community.
+            </div>
+
+            <div class="response-content" id="responseContent">
+                <!-- AI response will be inserted here -->
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="feedback-section">
+                <h4 style="margin-bottom: var(--spacing-md);">Was this response helpful or harmful?</h4>
+                <div class="feedback-buttons">
+                    <button class="feedback-btn helpful" onclick="setFeedback('helpful')">
+                        ✓ Helpful for Study
+                    </button>
+                    <button class="feedback-btn harmful" onclick="setFeedback('harmful')">
+                        ✗ Concerning/Harmful
+                    </button>
+                </div>
+                <textarea
+                    class="feedback-textarea"
+                    id="feedbackText"
+                    placeholder="Tell us why... What was helpful? What was concerning? What's missing? Be brutally honest - we need this feedback."
+                ></textarea>
+                <button class="demo-button" onclick="submitFeedback()" style="margin-top: var(--spacing-md);">
+                    Submit Feedback
+                </button>
+            </div>
+        </div>
+
+        <!-- About This Demo -->
+        <div class="demo-input-section" style="margin-top: var(--spacing-xl);">
+            <h3 style="margin-bottom: var(--spacing-md);">About This Demo</h3>
+            <p style="line-height: 1.6; color: var(--text-secondary); margin-bottom: var(--spacing-md);">
+                This is a preview of FaithFeed's AI Bible study assistant. We're launching a private beta in December 2025,
+                but we need critical feedback NOW before we go live.
+            </p>
+            <p style="line-height: 1.6; color: var(--text-secondary); margin-bottom: var(--spacing-md);">
+                <strong>What we need from you:</strong>
+            </p>
+            <ul style="line-height: 1.8; color: var(--text-secondary); margin-bottom: var(--spacing-md); padding-left: var(--spacing-lg);">
+                <li>Test different passages (easy and difficult ones)</li>
+                <li>Flag any theological concerns or inaccuracies</li>
+                <li>Tell us if this helps or hurts spiritual growth</li>
+                <li>Be brutally honest - we'd rather kill this feature than lead people astray</li>
+            </ul>
+            <p style="line-height: 1.6; color: var(--text-secondary);">
+                <strong>Want full beta access?</strong>
+                <a href="https://beta.faithfeed.ai" style="color: var(--accent-blue);">Join the private beta</a> |
+                <a href="https://discord.gg/2BUJrf7QvQ" style="color: var(--accent-blue);">Join our Discord</a>
+            </p>
+        </div>
+    </main>
+
+    <script>
+        let currentVerse = '';
+        let feedbackType = '';
+
+        function loadExample(verse) {
+            document.getElementById('verseInput').value = verse;
+        }
+
+        async function analyzeVerse() {
+            const verseInput = document.getElementById('verseInput').value.trim();
+
+            if (!verseInput) {
+                alert('Please enter a Bible verse reference');
+                return;
+            }
+
+            currentVerse = verseInput;
+
+            // Show loading
+            document.getElementById('analyzeBtn').disabled = true;
+            document.getElementById('loadingSpinner').classList.add('active');
+            document.getElementById('responseSection').classList.remove('active');
+
+            try {
+                // Call the real API
+                const response = await fetch('/api/analyze-verse', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ verse: verseInput })
+                });
+
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                const data = await response.json();
+
+                // Format the response
+                const formattedResponse = formatAnalysis(data);
+
+                document.getElementById('responseContent').innerHTML = formattedResponse;
+                document.getElementById('responseSection').classList.add('active');
+
+            } catch (error) {
+                console.error('Error:', error);
+                // Fallback to mock response if API fails
+                const mockResponse = generateMockResponse(verseInput);
+                document.getElementById('responseContent').innerHTML = mockResponse;
+                document.getElementById('responseSection').classList.add('active');
+            } finally {
+                document.getElementById('analyzeBtn').disabled = false;
+                document.getElementById('loadingSpinner').classList.remove('active');
+            }
+        }
+
+        function formatAnalysis(data) {
+            const { verse, verseText, analysis } = data;
+
+            // Convert analysis markdown to HTML
+            let formattedAnalysis = analysis
+                .replace(/### (.*)/g, '<h4>$1</h4>')
+                .replace(/## (.*)/g, '<h4>$1</h4>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>');
+
+            return `
+                <h4>📖 ${verse}</h4>
+                <p style="background: rgba(59, 130, 246, 0.1); padding: 1rem; border-radius: 8px; font-style: italic; margin-bottom: 1.5rem;">
+                    ${verseText}
+                </p>
+
+                <div style="line-height: 1.8;">
+                    <p>${formattedAnalysis}</p>
+                </div>
+
+                <div style="background: rgba(251, 191, 36, 0.1); border-left: 4px solid #f59e0b; padding: 1rem; margin-top: 1.5rem; border-radius: 4px;">
+                    <strong>⚠️ Remember:</strong> This AI provides study assistance, not authoritative interpretation.
+                    Always verify with your pastor, study group, and trusted commentaries. The Holy Spirit is your ultimate teacher.
+                </div>
+            `;
+        }
+
+        function generateMockResponse(verse) {
+            // This is a placeholder - replace with actual AI API call
+            return `
+                <h4>📖 Passage Context</h4>
+                <p>You searched for: <strong>${verse}</strong></p>
+                <p style="background: rgba(59, 130, 246, 0.1); padding: 1rem; border-radius: 8px; font-style: italic;">
+                    [Verse text would appear here from Bible API]
+                </p>
+
+                <h4>🔍 Historical Context</h4>
+                <p>
+                    <strong>Note:</strong> This is a demo version. The full AI would provide:
+                </p>
+                <ul style="line-height: 1.8; margin-left: 1.5rem;">
+                    <li>Historical background of when this was written</li>
+                    <li>Cultural context that helps understand the meaning</li>
+                    <li>Original audience and their situation</li>
+                    <li>Literary genre and writing style</li>
+                </ul>
+
+                <h4>🔗 Related Passages</h4>
+                <p>The AI would suggest cross-references based on:</p>
+                <ul style="line-height: 1.8; margin-left: 1.5rem;">
+                    <li>Similar themes</li>
+                    <li>Parallel accounts (for Gospels)</li>
+                    <li>Old Testament references (for New Testament passages)</li>
+                    <li>Theological connections</li>
+                </ul>
+
+                <h4>💭 Study Questions</h4>
+                <p>Sample questions to deepen understanding:</p>
+                <ul style="line-height: 1.8; margin-left: 1.5rem;">
+                    <li>What does this passage reveal about God's character?</li>
+                    <li>How would the original audience have understood this?</li>
+                    <li>What is the main point the author is making?</li>
+                    <li>How does this apply to modern Christian life?</li>
+                </ul>
+
+                <div style="background: rgba(251, 191, 36, 0.1); border-left: 4px solid #f59e0b; padding: 1rem; margin-top: 1.5rem; border-radius: 4px;">
+                    <strong>⚠️ Remember:</strong> This AI provides study assistance, not authoritative interpretation.
+                    Always verify with your pastor, study group, and trusted commentaries. The Holy Spirit is your ultimate teacher.
+                </div>
+
+                <div style="background: rgba(59, 130, 246, 0.1); padding: 1rem; margin-top: 1rem; border-radius: 8px;">
+                    <strong>🚧 Demo Note:</strong> This is a mock response showing the format.
+                    The actual AI would use Claude API to provide real analysis.
+                    <strong>We need your feedback on whether this approach is helpful or harmful.</strong>
+                </div>
+            `;
+        }
+
+        function setFeedback(type) {
+            feedbackType = type;
+
+            // Visual feedback
+            const buttons = document.querySelectorAll('.feedback-btn');
+            buttons.forEach(btn => btn.style.opacity = '0.5');
+
+            const selectedBtn = document.querySelector(`.feedback-btn.${type}`);
+            selectedBtn.style.opacity = '1';
+            selectedBtn.style.transform = 'scale(1.05)';
+        }
+
+        async function submitFeedback() {
+            const feedbackText = document.getElementById('feedbackText').value.trim();
+
+            if (!feedbackType) {
+                alert('Please select whether the response was helpful or harmful');
+                return;
+            }
+
+            if (!feedbackText) {
+                alert('Please provide details about your feedback');
+                return;
+            }
+
+            try {
+                // Send to backend API
+                const response = await fetch('/api/ai-feedback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        verse: currentVerse,
+                        feedbackType: feedbackType,
+                        feedback: feedbackText
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Thank you for your feedback! This helps us build better tools for the body of Christ.');
+                } else {
+                    throw new Error('Feedback submission failed');
+                }
+
+                // Reset form
+                document.getElementById('feedbackText').value = '';
+                feedbackType = '';
+                document.querySelectorAll('.feedback-btn').forEach(btn => {
+                    btn.style.opacity = '1';
+                    btn.style.transform = 'scale(1)';
+                });
+
+            } catch (error) {
+                alert('Error submitting feedback. Please try again or email us directly.');
+                console.error(error);
+            }
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('verseInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                analyzeVerse();
+            }
+        });
+    </script>
+</body>
+</html>
