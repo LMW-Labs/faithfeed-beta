@@ -136,10 +136,12 @@ body {
     50% { transform: translateY(-10px); }
 }
 
-.logo-wordmark {
-    height: 50px;
-    width: auto;
-    object-fit: contain;
+.logo-text {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--dark-blue);
+    letter-spacing: -0.02em;
 }
 
 /* ========================================
@@ -697,8 +699,8 @@ body {
         height: 70px;
     }
 
-    .logo-wordmark {
-        height: 40px;
+    .logo-text {
+        font-size: 2rem;
     }
 
     .hero-title {
